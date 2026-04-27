@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard ลูกค้า</title>
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff6600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1b1b1b;
+        }
+
+        th {
+            background: #ff6600;
+            padding: 12px;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        tr:hover {
+            background: #222;
+        }
+
+        .btn {
+            background: #ff6600;
+            color: white;
+            padding: 6px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .green { color: #00ff99; }
+        .red { color: #ff4444; }
+        .orange { color: #ff9900; }
+        .gray { color: #aaa; }
+
+        .idle {
+            color: #ffcc66;
+            font-size: 13px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>📊 Dashboard ลูกค้า</h1>
+
+<table>
+<tr>
+    <th>ID</th>
+    <th>ชื่อ</th>
+    <th>สถานะ</th>
+    <th>เงียบไป</th>
+    <th>จัดการ</th>
+</tr>
+
+{% for c in data %}
+<tr>
+    <td>{{ c.id }}</td>
+    <td>{{ c.name }}</td>
+
+    <td class="status">
+        {% if c.status == "กำลังคุย" %}
+            <span class="green">{{ c.status }}</span>
+        {% elif c.status == "ลูกค้าเงียบ" %}
+            <span class="red">{{ c.status }}</span>
+        {% elif c.status == "รอตัดสินใจ" %}
+            <span class="orange">{{ c.status }}</span>
+        {% else %}
+            <span class="gray">{{ c.status }}</span>
+        {% endif %}
+    </td>
+
+    <td class="idle">
+        เงียบ {{ c.idle_time }}
+    </td>
+
+    <td>
+        <a class="btn" href="/chat/{{ c.id }}">เปิดแชท</a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

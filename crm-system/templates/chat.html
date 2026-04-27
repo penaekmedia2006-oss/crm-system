@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>แชทลูกค้า</title>
+
+<style>
+body {
+    background: #111;
+    color: white;
+    font-family: Arial;
+    padding: 20px;
+}
+
+a {
+    color: #ff6600;
+}
+
+.msg {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+}
+
+.customer {
+    background: #222;
+}
+
+.admin {
+    background: #ff6600;
+    text-align: right;
+    margin-left: auto;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    margin-top: 10px;
+}
+
+button {
+    background: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<a href="/dashboard">← กลับ</a>
+
+<h2>{{ user[1] }}</h2>
+
+{% for m in messages %}
+<div class="msg {% if m[2]=='admin' %}admin{% else %}customer{% endif %}">
+    {{ m[3] }}<br>
+    <small>{{ m[4] }}</small>
+</div>
+{% endfor %}
+
+<form method="POST" action="/send">
+<input type="hidden" name="uid" value="{{ user[0] }}">
+<textarea name="msg"></textarea>
+<button>ส่งข้อความ</button>
+</form>
+
+</body>
+</html>
